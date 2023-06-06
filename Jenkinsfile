@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+    JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
+}
     agent {
         label "demoAgent"
     }
@@ -13,6 +16,9 @@ pipeline {
         stage('mvn') {
             steps {
                 // Get some code from a GitHub repository
+                tools{
+                    maven 'Maven 3.9.2'
+                }
                     sh 'mvn -Dmaven.test.failure.ignore=true clean test'
             }
         }
