@@ -1,19 +1,19 @@
 pipeline {
-    agent any
-
+    agent {
+        label "demoAgent"
+    }
     stages {
         stage('git') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+               git branch: 'main', credentialsId: 'lica-jenkins', url: 'https://github.com/licakim/jenkins-demo.git'
 
             }
         }
         stage('mvn') {
             steps {
                 // Get some code from a GitHub repository
-                bat "mvn -Dmaven.test.failure.ignore=true clean test"
-
+                    sh 'mvn -Dmaven.test.failure.ignore=true clean test'
             }
         }
     }
